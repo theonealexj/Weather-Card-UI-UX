@@ -1,0 +1,158 @@
+/* css/style.css ---
+   Triple-column weather card — responsive, CSS only.
+*/
+
+:root{
+  --bg-1:#052b33;
+  --bg-2:#003b44;
+  --accent:#14e0d4;
+  --muted:rgba(255,255,255,0.75);
+  --glass: rgba(255,255,255,0.04);
+  --maxw:1200px;
+  --pad:36px;
+  --font-sans:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:var(--font-sans);color:white}
+
+/* starry background imitation */
+.weather-bg{
+  min-height:10vh;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03) 0 1px, transparent 1px),
+    radial-gradient(circle at 70% 10%, rgba(255,255,255,0.03) 0 1px, transparent 1px),
+    radial-gradient(circle at 30% 80%, rgba(255,255,255,0.02) 0 1px, transparent 1px),
+    linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  padding:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* container with three columns */
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  display:flex;
+  flex-direction: column;
+  align-items: stretch; /* so each takes full width */
+  gap:24px;
+  padding: var(--pad);
+}
+
+/* side panels */
+.side{
+  flex:1 1 280px;
+  min-width:240px;
+  position:relative;
+  padding:24px;
+}
+
+/* center panel narrower */
+.center{
+  flex:0 0 360px;
+  text-align:center;
+  padding:20px;
+}
+
+/* top cloud positions */
+.cloud{
+  position:absolute;
+  top:-12px;
+  width:160px;  
+  height:auto;
+  opacity:0.95;
+}
+.cloud-left{ left:0; transform:translateX(-8px) scale(1.1)}
+.cloud-right{ right:0; transform:translateX(8px) scale(1.1) }
+
+/* label */
+.label{
+  color:var(--accent);
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+/* big temperature row */
+.temp-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:6px;
+  margin-bottom:8px;
+}
+
+.temp-value{
+  font-size:90px;
+  font-weight:300;
+  line-height:0.9;
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+}
+
+.deg{font-size:38px;margin-top:8px;color:var(--muted);}
+
+/* unit split vertical */
+.unit-split{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent);
+  font-weight:700;
+  font-size:48px;
+  border-left:2px solid rgba(20,224,212,0.22);
+  padding-left:18px;
+  height:100px;
+  margin-left:6px;
+}
+.unit-split .divider{color:rgba(20,224,212,0.55);margin:6px 0;font-size:36px}
+
+/* small stats */
+.mini-stats{color:rgba(255,255,255,0.7);font-size:14px;margin-top:8px}
+.mini-stats div{margin:6px 0}
+.mini-stats span{color:#dfeff2}
+.hl{color:var(--accent);margin-top:8px;font-weight:700}
+
+/* center pins, city, date */
+.pin{width:28px;height:28px;margin:0 auto 6px;display:block}
+.city{font-size:26px;font-weight:800;letter-spacing:1px}
+.date{color:var(--muted);font-size:14px;margin-top:8px}
+.time{display:block;margin-top:6px;font-weight:700;color:white}
+
+/* barometer block */
+.baro{margin-top:18px}
+.baro-value{font-size:56px;font-weight:400}
+.baro-unit{font-size:18px;vertical-align:super;margin-left:6px;color:var(--muted)}
+.baro-label{color:var(--accent);letter-spacing:1px;margin-top:6px;font-weight:700}
+
+/* layout polish */
+@media (max-width:1100px){
+  .container{flex-direction:column;align-items:stretch;padding:28px;gap:16px}
+  .center{order:2;margin:0 auto}
+  .side{order:1;padding:18px}
+  .cloud{display:none}
+  .temp-value{font-size:64px}
+  .unit-split{font-size:36px;height:76px;padding-left:12px}
+}
+
+@media (max-width:420px){
+  .temp-value{font-size:48px}
+  .unit-split{font-size:28px;height:64px;padding-left:8px}
+  .container{padding:18px}
+  .center{flex-basis:auto}
+}
+@media (max-width:360px){
+  .temp-value{font-size:42px}
+  .unit-split{font-size:24px;height:56px;padding-left:6px}
+  .container{padding:12px}
+  .center{flex-basis:auto}
+}
